@@ -1,0 +1,131 @@
+CREATE TABLE Role(
+    roleID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    roleName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Customer (
+    customerID INT IDENTITY(1,1) PRIMARY KEY,
+    fullName NVARCHAR(255),
+    email VARCHAR(255),
+    phone VARCHAR(10),
+    userName VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    registrationDate DATE,
+    status BIT
+);
+
+CREATE TABLE Manager (
+    managerID INT IDENTITY(1,1) PRIMARY KEY,
+    fullName NVARCHAR(255),
+    email VARCHAR(255),
+    phone VARCHAR(10),
+    userName VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    registrationDate DATE,
+    status BIT,
+    roleID INT,
+    FOREIGN KEY (roleID) REFERENCES Role(roleID)
+);
+
+CREATE TABLE Brand (
+    brandID INT IDENTITY(1,1) PRIMARY KEY,
+    brandName NVARCHAR(255)
+);
+
+CREATE TABLE Category (
+    categoryID INT IDENTITY(1,1) PRIMARY KEY,
+    categoryName NVARCHAR(255)
+);
+
+CREATE TABLE Product (
+    productID INT IDENTITY(1,1) PRIMARY KEY,
+    productName NVARCHAR(255),
+    description NVARCHAR(MAX),
+    categoryID INT,
+    price DECIMAL(10,2),
+    stock_Quantity INT,
+    brandID INT,
+    image VARCHAR(255),
+    FOREIGN KEY (categoryID) REFERENCES Category(categoryID),
+    FOREIGN KEY (brandID) REFERENCES Brands(brandID)
+);
+
+CREATE TABLE Supplier (
+    supplierID INT IDENTITY(1,1) PRIMARY KEY,
+    supplierName NVARCHAR(255)
+);
+
+CREATE TABLE ProductSupplier (
+    productID INT,
+    supplierID INT,
+    PRIMARY KEY (productID, supplierID),
+    FOREIGN KEY (productID) REFERENCES Product(productID),
+    FOREIGN KEY (supplierID) REFERENCES Supplier(supplierID)
+);
+
+CREATE TABLE Cart (
+    cartID INT IDENTITY(1,1) PRIMARY KEY,
+    customerID INT,
+    createAt DATE,
+    FOREIGN KEY (customerID) REFERENCES Customer(customerID)
+);
+
+CREATE TABLE CartItem (
+    cartID INT,
+    productID INT,
+    quantity INT,
+    totalPrice DECIMAL(10,2),
+    PRIMARY KEY (cartID, productID),
+    FOREIGN KEY (cartID) REFERENCES Cart(cartID),
+    FOREIGN KEY (productID) REFERENCES Product(productID)
+);
+
+CREATE TABLE OrderStatus (
+    orderStatusID INT IDENTITY(1,1) PRIMARY KEY,
+    statusName VARCHAR(50)
+);
+
+CREATE TABLE DeliveryOption (
+    deliveryOptionID INT IDENTITY(1,1) PRIMARY KEY,
+    optionName NVARCHAR(255),
+    estimatedTime NVARCHAR(50)
+);
+
+CREATE TABLE PaymentMethod (
+    paymentMethodID INT IDENTITY(1,1) PRIMARY KEY,
+    methodName VARCHAR(50)
+);
+
+CREATE TABLE OrderInfo (
+    orderID INT IDENTITY(1,1) PRIMARY KEY,
+    customerID INT,
+    orderStatus INT,
+    orderDate DATE,
+    deliveryOptionID INT,
+    managerID INT,
+    paymentMethodID INT,
+    totalPrice DECIMAL(10,2),
+    deliveryAddress NVARCHAR(MAX),
+    FOREIGN KEY (customerID) REFERENCES Customer(CustomerID),
+    FOREIGN KEY (orderStatus) REFERENCES OrderStatus(orderStatusID),
+    FOREIGN KEY (deliveryOptionID) REFERENCES DeliveryOption(deliveryOptionID),
+    FOREIGN KEY (managerID) REFERENCES Manager(managerID),
+    FOREIGN KEY (paymentMethodID) REFERENCES PaymentMethod(paymentMethodID)
+);
+
+CREATE TABLE OrderDetail (
+    productID INT,
+    orderID INT,
+    quantity INT,
+    totalPrice DECIMAL(10,2),
+PRIMARY KEY (productID, orderID),
+    FOREIGN KEY (productID) REFERENCES Product(productID),
+    FOREIGN KEY (orderID) REFERENCES OrderInfo(orderID)
+);
+
+CREATE TABLE Address (
+    addressID INT IDENTITY(1,1) PRIMARY KEY,
+    addressDetail VARCHAR(255),
+    CustomerID INT,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
