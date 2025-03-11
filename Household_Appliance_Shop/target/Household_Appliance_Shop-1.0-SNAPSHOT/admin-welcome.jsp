@@ -3,6 +3,13 @@
     Created on : Nov 4, 2024, 12:57:34 AM
     Author     : admin
 --%>
+<%
+    // Kiểm tra nếu user là customer nhưng không phải manager
+    if (session.getAttribute("customer") != null && session.getAttribute("manager") == null) {
+        response.sendRedirect("home");
+        return;
+    }
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -71,13 +78,13 @@
         <!-- Sidebar -->
         <jsp:include page="admin_dashboard_header.jsp"></jsp:include>
         <div class="sidebar">
-                <h3>Admin Dashboard</h3>
-                <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
-                <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
-                <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
-                <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
-                <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
-            </div>
+            <h3>Admin Dashboard</h3>
+            <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
+            <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
+            <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
+            <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
+            <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
+        </div>
 
         <!-- Main Content -->
         <div class="content">

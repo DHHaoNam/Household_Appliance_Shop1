@@ -107,6 +107,9 @@
                     <c:if test="${not empty sessionScope.errorPhone}">
                         <p class="error"><c:out value="${sessionScope.errorPhone}" /></p>
                     </c:if>
+                    <c:if test="${not empty sessionScope.errorPhoneFormat}">
+                        <p class="error"><c:out value="${sessionScope.errorPhoneFormat}" /></p>
+                    </c:if>
                 </div>
                 <div class="mb-3 position-relative">
                     <label for="password" class="form-label">Password</label>
@@ -131,8 +134,8 @@
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">Register</button>
                 </div>
-                <c:if test="${not empty sessionScope.successMessage}">
-                    <div class="alert alert-success mt-3">${sessionScope.successMessage}</div>
+                <c:if test="${not empty sessionScope.registersuccessmassage}">
+                    <div class="alert alert-success mt-3">${sessionScope.registersuccessmassage}</div>
                 </c:if> 
                 <div class="form-text">
                     Already have an account? <a href="login.jsp">Login Here</a>
@@ -154,6 +157,7 @@
         <% session.removeAttribute("errorName"); %>
         <% session.removeAttribute("errorEmail"); %>
         <% session.removeAttribute("errorPhone"); %>
+        <% session.removeAttribute("errorPhoneFormat"); %>
         <% session.removeAttribute("errorConfirm"); %>
         <% session.removeAttribute("errorGeneral");%>
 

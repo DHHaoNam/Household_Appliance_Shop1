@@ -176,12 +176,16 @@ public class CustomerDAO extends DAO {
 
     public boolean changePassword(int customerID, String oldPassword, String newPassword) throws SQLException {
         String sql = "SELECT password FROM Customer WHERE customerID = ?";
+
         try ( Connection conn = getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, customerID);
             ResultSet rs = ps.executeQuery();
+
             if (rs.next()) {
                 String storedPassword = rs.getString("password");
-                if (!storedPassword.equals(oldPassword)) {
+                String hashedOldPassword = hashPasswordMD5(oldPassword); // Băm mật khẩu cũ trước khi so sánh
+
+                if (!storedPassword.equals(hashedOldPassword)) {
                     return false; // Sai mật khẩu cũ
                 }
             } else {
@@ -198,4 +202,24 @@ public class CustomerDAO extends DAO {
         }
     }
 
+    public Customer getCustomerById(int customerID) throws SQLException {
+        String sql = "SELECT * FROM Customer WHERE customerID = ?";
+        try ( Connection conn = getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, customerID);
+            try ( ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Customer customer = new Customer();
+                    customer.setCustomerID(rs.getInt("customerID"));
+                    customer.setFullName(rs.getString("fullName"));
+                    customer.setUserName(rs.getString("userName"));
+                    customer.setPassword(rs.getString("password"));
+                    customer.setEmail(rs.getString("email"));
+                    customer.setPhone(rs.getString("phone"));
+                    customer.setStatus(rs.getBoolean("status"));
+                    return customer;
+                }
+            }
+        }
+        return null;
+    }
 }

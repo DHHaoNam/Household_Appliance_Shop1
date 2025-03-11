@@ -131,7 +131,6 @@
             <!-- Info Account Section -->
             <div class="container my-5">
                 <h3>Tài Khoản</h3>
-            <%-- Hiển thị thông báo thành công --%>
             <c:if test="${not empty requestScope.message}">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     ${requestScope.message}
@@ -139,7 +138,6 @@
                 </div>
             </c:if>
 
-            <%-- Hiển thị thông báo lỗi --%>
             <c:if test="${not empty requestScope.error}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     ${requestScope.error}
@@ -151,20 +149,14 @@
                 <!-- Sidebar -->
                 <div class="col-md-3">
                     <ul>
-                        <li><a href="account.jsp">Thông tin tài khoản</a></li>
+                        <li><a href="CustomerManagement">Thông tin tài khoản</a></li>
                         <li><a href="listAddress">Danh sách địa chỉ</a></li>
                         <li><a href="listOrders">Lịch sử mua hàng</a></li>
+                        <li><a href="changepassword">Đổi mật khẩu</a></li>
                         <li><a href="logout">Đăng xuất</a></li>
                     </ul>
                 </div>
 
-                <!-- Account Information -->
-                <c:if test="${not empty errorMessage}">
-                    <div class="alert alert-danger">${errorMessage}</div>
-                </c:if>
-                <c:if test="${not empty successMessage}">
-                    <div class="alert alert-success">${successMessage}</div>
-                </c:if>
 
                 <c:if test="${sessionScope.customer != null}">
                     <div class="col-md-9">
@@ -185,6 +177,12 @@
                                     <label for="phone">Số điện thoại:</label>
                                     <input type="text" name="phone" id="phone_number" value="${sessionScope.customer.phone}">
                                 </div>
+                                <c:if test="${not empty errorMessage}">
+                                    <div class="alert alert-danger">${errorMessage}</div>
+                                </c:if>
+                                <c:if test="${not empty successMessage}">
+                                    <div class="alert alert-success">${successMessage}</div>
+                                </c:if>
                                 <div class="info-item mx-auto">
                                     <button type="submit" class="btn">Cập nhật</button>
                                 </div>

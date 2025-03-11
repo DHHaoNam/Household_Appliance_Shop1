@@ -183,7 +183,7 @@
                     <div class="col-md-3">
                         <ul>
                             <h3>Tài Khoản</h3>
-                            <li><a href="account.jsp">Thông tin tài khoản</a></li>
+                            <li><a href="CustomerManagement">Thông tin tài khoản</a></li>
                             <li><a href="listAddress">Danh sách địa chỉ</a></li>
                             <li><a href="listOrders">Lịch sử mua hàng</a></li>
                             <li><a href="logout">Đăng xuất</a></li>
@@ -191,41 +191,29 @@
                     </div>
 
                     <!-- Address Cards -->
-                    <div class="col-md-6">
+                    <div class="address-list col-md-6">
                     <c:forEach var="address" items="${listAddresses}">
-                        <div class="address-card ${address.isIs_default() ? 'default-address' : ''}">
+                        <div class="address-card ${address.isDefault() == 1 ? 'default-address' : ''}">
                             <div>
-                                <h5>${address.name} <c:if test="${address.isIs_default()}">(Địa chỉ mặc định)</c:if></h5>
-                                <p>Địa chỉ: ${address.addressLine}, ${address.city}</p>
-                                <p>Số điện thoại: ${address.phoneNumber}</p>
-                                <c:if test="${!address.isIs_default()}">
-                                    <a href="setDefaultAddress?id=${address.id}" class="btn btn-success">Đặt Làm Địa Chỉ Mặc Định</a>
+                                <h5 class="mb-1"><i class="fa-solid fa-map-marker-alt"></i> Địa chỉ</h5>
+                                <p class="mb-1">${address.getAddressDetail()}</p>
+                                <c:if test="${address.isDefault() == 1}">
+                                    <span class="badge bg-warning text-dark">Mặc định</span>
                                 </c:if>
                             </div>
                             <div class="address-actions">
-                                <a href="updateAddress?id=${address.id}" class="btn btn-primary">
-                                    <i class="fa-solid fa-pen"></i> Sửa
-                                </a>
-                                <c:if test="${!address.isIs_default()}">
-                                    <a href="deleteAddress?id=${address.id}" class="btn btn-danger" onclick="return confirmDelete();">
-                                        <i class="fa-solid fa-trash"></i> Xóa
-                                    </a>
-                                </c:if>
+                                <a href="updateAddress?addressID=${address.getAddressID()}" class="btn btn-danger btn-sm"><i class="fa-solid fa-pen"></i> Sửa</a>
+                                <a href="deleteAddress?id=${address.getAddressID()}" class="btn btn-danger btn-sm" onclick="return confirmDelete();"><i class="fa-solid fa-trash"></i> Xóa</a>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
-
-                <!-- New Address Form -->
                 <!-- New Address Form -->
                 <div class="col-md-3">
                     <button class="btn btn-success mb-3" onclick="toggleAddressForm()">Nhập địa chỉ mới</button>
                     <div id="newAddressForm" style="display:none;">
-                        <form action="insertAddress" method="POST">
-                            <input type="text" class="form-control" placeholder="Họ và Tên" name="name" required>
-                            <input type="text" class="form-control" placeholder="Địa chỉ" name="addressLine" required>
-                            <input type="text" class="form-control" placeholder="Thành phố" name="city" required>
-                            <input type="text" class="form-control" placeholder="Số điện thoại" name="phoneNumber" required>
+                        <form action="addAddress" method="POST">
+                            <input type="text" class="form-control" placeholder="Địa chỉ" name="addressDetail" required>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="defaultAddress" name="is_default">
                                 <label class="form-check-label" for="defaultAddress">Đặt làm địa chỉ mặc định</label>
@@ -234,17 +222,20 @@
                         </form>
                     </div>
                 </div>
-
-
             </div>
         </div>
 
-        <!-- Footer -->
-        <jsp:include page="footer.jsp"></jsp:include>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<jsp:include page="footer.jsp"></jsp:include>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
                         function toggleAddressForm() {
                             var form = document.getElementById("newAddressForm");
                             if (form.style.display === "none") {
@@ -253,7 +244,7 @@
                                 form.style.display = "none";
                             }
                         }
-        </script>
-    </body>
+</script>
+</body>
 
 </html>

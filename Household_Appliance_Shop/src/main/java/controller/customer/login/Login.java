@@ -5,6 +5,7 @@
 package controller.customer.login;
 
 import dao.CustomerDAO;
+import dao.ManagerDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import model.Customer;
+import model.Manager;
 
 /**
  *
@@ -82,6 +84,7 @@ public class Login extends HttpServlet {
             Customer customer = customerDAO.login(userName, password);
 
             if (customer != null) {
+                // Nếu là customer, chuyển đến trang home
                 HttpSession session = request.getSession();
                 session.setAttribute("customer", customer);
 
@@ -91,11 +94,35 @@ public class Login extends HttpServlet {
                 response.addCookie(userCookie);
 
                 response.sendRedirect("home");
-            } else {
-                request.setAttribute("errorMessage", "Invalid username or password.");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
-                dispatcher.forward(request, response);
+                return;
             }
+
+            // Nếu không phải customer, kiểm tra manager
+            ManagerDAO managerDAO = new ManagerDAO();
+            Manager manager = managerDAO.login(userName, password);
+
+            if (manager != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("manager", manager);
+
+                Cookie userCookie = new Cookie("user", userName);
+                userCookie.setMaxAge(30 * 60);
+                userCookie.setPath("/");
+                response.addCookie(userCookie);
+
+                // Nếu là admin hoặc staff thì chuyển đến admin-welcome.jsp
+                if (manager.getRoleID() == 1 || manager.getRoleID() == 2) { // Giả sử 1 = Admin, 2 = Staff
+                    response.sendRedirect("admin-welcome.jsp");
+                } else {
+                    response.sendRedirect("home");
+                }
+                return;
+            }
+
+            // Nếu không tìm thấy tài khoản hợp lệ
+            request.setAttribute("errorMessage", "Invalid username or password.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
         }

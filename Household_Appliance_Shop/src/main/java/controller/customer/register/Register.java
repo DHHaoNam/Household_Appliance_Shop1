@@ -98,6 +98,16 @@ public class Register extends HttpServlet {
                 session.setAttribute("errorEmail", "Email đã tồn tại");
                 hasError = true;
             }
+            if (password.length() <= 7) {
+                session.setAttribute("errorPassword", "Mật khẩu phải dài hơn 7 ký tự");
+                hasError = true;
+            }
+            if (!phone.matches("\\d+")) {
+                session.setAttribute("errorPhoneFormat", "Số điện thoại chỉ được chứa chữ số!");
+                hasError = true;
+            }
+            System.out.println("Phone: " + phone);
+
 
             // Kiểm tra số điện thoại đã tồn tại chưa
             if (customerDAO.checkPhoneExists(phone)) {
@@ -112,7 +122,6 @@ public class Register extends HttpServlet {
 
             // Mã hóa mật khẩu bằng MD5
 //            String hashedPassword = hashPasswordMD5(password);
-
             // Tạo đối tượng Customer
             Customer customer = new Customer();
             customer.setFullName(fullName);
@@ -123,7 +132,7 @@ public class Register extends HttpServlet {
 
             // Thực hiện đăng ký
             if (customerDAO.register(customer)) {
-                session.setAttribute("successMessage", "Đăng ký thành công! Vui lòng đăng nhập.");
+                session.setAttribute("registersuccessmassage", "Đăng ký thành công! Vui lòng đăng nhập.");
                 response.sendRedirect("register.jsp");
             } else {
                 session.setAttribute("errorGeneral", "Đăng ký thất bại! Vui lòng thử lại.");
@@ -134,21 +143,6 @@ public class Register extends HttpServlet {
             throw new ServletException("Lỗi database: " + e.getMessage());
         }
     }
-
-//    private String hashPasswordMD5(String password) {
-//        try {
-//            MessageDigest md = MessageDigest.getInstance("MD5");
-//            md.update(password.getBytes());
-//            byte[] digest = md.digest();
-//            StringBuilder sb = new StringBuilder();
-//            for (byte b : digest) {
-//                sb.append(String.format("%02x", b));
-//            }
-//            return sb.toString();
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new RuntimeException("Lỗi mã hóa MD5", e);
-//        }
-//    }
 
     /**
      * Returns a short description of the servlet.

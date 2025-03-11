@@ -13,14 +13,17 @@ public class Address {
     private int addressID;
     private String addressDetail;
     private int CustomerID;
+    private int isDefault;
 
     public Address() {
     }
 
-    public Address(int addressID, String addressDetail, int CustomerID) {
+    public Address(int addressID, String addressDetail, int CustomerID, int isDefault) {
         this.addressID = addressID;
         this.addressDetail = addressDetail;
         this.CustomerID = CustomerID;
+        this.isDefault = isDefault;
+
     }
 
     public int getAddressID() {
@@ -45,6 +48,14 @@ public class Address {
 
     public void setCustomerID(int CustomerID) {
         this.CustomerID = CustomerID;
+    }
+
+    public int isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(int isDefault) {
+        this.isDefault = isDefault;
     }
 
 }

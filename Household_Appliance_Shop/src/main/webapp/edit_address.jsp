@@ -29,7 +29,7 @@
                 background-color: #f7f7f7;
             }
 
-/*            Navbar Customization*/
+            /*            Navbar Customization*/
             .navbar {
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             }
@@ -97,7 +97,7 @@
                 border-radius: 10px;
                 margin-left: 18px;
             }
-            
+
             .form-control {
                 margin-bottom: 15px;
             }
@@ -126,17 +126,21 @@
                     <div class="col-md-6 form-update">
                     <c:set var="address" value="${updateAddress}" />
                     <form action="updateAddress" method="POST">
-                        <input type="hidden" name="id" value="${address.id}">
-                        <input type="text" class="form-control" placeholder="Họ và Tên" name="name" value="${address.name}" required>
-                        <input type="text" class="form-control" placeholder="Địa chỉ" name="addressLine" value="${address.addressLine}" required>
-                        <input type="text" class="form-control" placeholder="Thành phố" name="city" value="${address.city}" required>
-                        <input type="text" class="form-control" placeholder="Số điện thoại" name="phoneNumber" value="${address.phoneNumber}" required>
+                        <input type="hidden" name="addressID" value="${address.getAddressID()}">
+                        <div class="mb-3">
+                            <label for="addressDetail" class="form-label">Địa chỉ:</label>
+                            <input type="text" class="form-control" id="addressDetail" name="addressDetail" value="${address.getAddressDetail()}" required>
+                        </div>
+
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="defaultAddress" name="is_default" ${address.isIs_default() ? "checked" : ""}>
+                            <input type="checkbox" class="form-check-input" id="defaultAddress" name="isDefault" ${address.isDefault() == 1 ? 'checked' : ''}>
                             <label class="form-check-label" for="defaultAddress">Đặt làm địa chỉ mặc định</label>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Cập Nhật</button>
+
+                        <button type="submit" class="btn btn-success mt-3">Cập nhật</button>
                     </form>
+
+
                 </div>
 
             </div>

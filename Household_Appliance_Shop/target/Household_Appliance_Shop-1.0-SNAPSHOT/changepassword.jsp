@@ -129,21 +129,12 @@
 
 
     <body>
-
-        <c:if test="${not empty success}">
-            <div class="alert alert-success">${success}</div>
-            <c:remove var="success" scope="session"/>
-        </c:if>
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger">${error}</div>
-        </c:if>
-
         <jsp:include page="header.jsp"></jsp:include>
 
             <!-- Sidebar -->
             <div class="col-md-3">
                 <ul>
-                    <li><a href="account.jsp">Thông tin tài khoản</a></li>
+                    <li><a href="CustomerManagement">Thông tin tài khoản</a></li>
                     <li><a href="listAddress">Danh sách địa chỉ</a></li>
                     <li><a href="listOrders">Lịch sử mua hàng</a></li>
                     <li><a href="changepassword">Đổi mật khẩu</a></li>
@@ -173,6 +164,10 @@
                         </div>
                     <c:if test="${not empty error}">
                         <div class="alert alert-danger">${error}</div>
+                    </c:if>
+                    <c:if test="${not empty success}">
+                        <div class="alert alert-success">${success}</div>
+                        <c:remove var="success" scope="session"/>
                     </c:if>
                 </form>
             </div>

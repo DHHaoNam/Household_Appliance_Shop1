@@ -79,8 +79,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     }
 
     // Kiểm tra số điện thoại
-    if (phone.length() > 10 || !phone.matches("\\d+")) {
-        request.setAttribute("errorMessage", "Số điện thoại không hợp lệ! Chỉ nhập tối đa 10 số và không chứa chữ.");
+    if (phone.length() != 10 || !phone.matches("\\d+")) {
+        request.setAttribute("errorMessage", "Số điện thoại không hợp lệ! Số điện thoại chỉ được 10 số và không chứa chữ cái.");
         request.getRequestDispatcher("update-account.jsp").forward(request, response);
         return;
     }

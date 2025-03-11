@@ -4,28 +4,22 @@
  */
 package controller.customer.profile;
 
-import dao.CustomerDAO;
+import dao.AddressDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
+import model.Address;
 import model.Customer;
 
 /**
  *
  * @author Nam
  */
-public class ChangePassword extends HttpServlet {
-
-    private CustomerDAO customerDAO;
-
-    @Override
-    public void init() throws ServletException {
-        customerDAO = new CustomerDAO();
-    }
+public class UpdateAddress extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,6 +33,18 @@ public class ChangePassword extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdateAddress</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdateAddress at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,8 +59,18 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Chỉ hiển thị trang, không kiểm tra lỗi
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        int addressID = Integer.parseInt(request.getParameter("addressID"));
+       
+
+        AddressDAO dao = new AddressDAO();
+        Address address = dao.getAddressById(addressID);
+
+        if (address != null) {
+            request.setAttribute("updateAddress", address);
+            request.getRequestDispatcher("edit_address.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("listAddress");
+        }
     }
 
     /**
@@ -68,6 +84,7 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
 
@@ -75,37 +92,27 @@ public class ChangePassword extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
+        int customerID = customer.getCustomerID(); // Lấy customerID từ đối tượng Customer
+        int addressID = Integer.parseInt(request.getParameter("addressID"));
 
-        int customerID = customer.getCustomerID();
-        String oldPassword = request.getParameter("oldPassword");
-        String newPassword = request.getParameter("newPassword");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String addressDetail = request.getParameter("addressDetail");
+        boolean isDefault = request.getParameter("isDefault") != null;
+        AddressDAO dao = new AddressDAO();
 
-        if (newPassword.length() < 8) {
-            request.setAttribute("error", "Mật khẩu mới phải có ít nhất 8 ký tự!");
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-            return;
-        }
-        if (!newPassword.equals(confirmPassword)) {
-            request.setAttribute("error", "Mật khẩu mới và xác nhận không khớp!");
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-            return;
+        if (isDefault) {
+            dao.removeDefaultAddress(customerID); // Xóa địa chỉ mặc định cũ
         }
 
-        try {
-            boolean isChanged = customerDAO.changePassword(customerID, oldPassword, newPassword);
+        Address address = new Address(addressID, addressDetail, customerID, isDefault ? 1 : 0);
+        boolean success = dao.updateAddress(address);
 
-            if (isChanged) {
-                request.setAttribute("success", "Đổi mật khẩu thành công!");
-            } else {
-                request.setAttribute("error", "Sai mật khẩu cũ hoặc có lỗi xảy ra!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Lỗi hệ thống! Vui lòng thử lại.");
+        if (success) {
+            response.sendRedirect("listAddress"); // Quay về danh sách sau khi cập nhật thành công
+        } else {
+            request.setAttribute("errorMessage", "Cập nhật địa chỉ thất bại!");
+            request.setAttribute("updateAddress", address);
+            request.getRequestDispatcher("edit_address.jsp").forward(request, response);
         }
-
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
     }
 
     /**

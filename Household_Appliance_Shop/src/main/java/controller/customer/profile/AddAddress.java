@@ -4,28 +4,22 @@
  */
 package controller.customer.profile;
 
-import dao.CustomerDAO;
+import dao.AddressDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
+import model.Address;
 import model.Customer;
 
 /**
  *
  * @author Nam
  */
-public class ChangePassword extends HttpServlet {
-
-    private CustomerDAO customerDAO;
-
-    @Override
-    public void init() throws ServletException {
-        customerDAO = new CustomerDAO();
-    }
+public class AddAddress extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,6 +33,18 @@ public class ChangePassword extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AddAddress</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AddAddress at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,8 +59,7 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Chỉ hiển thị trang, không kiểm tra lỗi
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -66,8 +71,7 @@ public class ChangePassword extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
 
@@ -76,36 +80,20 @@ public class ChangePassword extends HttpServlet {
             return;
         }
 
-        int customerID = customer.getCustomerID();
-        String oldPassword = request.getParameter("oldPassword");
-        String newPassword = request.getParameter("newPassword");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String addressDetail = request.getParameter("addressDetail");
+        boolean isDefault = request.getParameter("is_default") != null;
 
-        if (newPassword.length() < 8) {
-            request.setAttribute("error", "Mật khẩu mới phải có ít nhất 8 ký tự!");
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-            return;
-        }
-        if (!newPassword.equals(confirmPassword)) {
-            request.setAttribute("error", "Mật khẩu mới và xác nhận không khớp!");
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        if (addressDetail == null || addressDetail.trim().isEmpty()) {
+            request.setAttribute("error", "Địa chỉ không được để trống!");
+            request.getRequestDispatcher("address_management.jsp").forward(request, response);
             return;
         }
 
-        try {
-            boolean isChanged = customerDAO.changePassword(customerID, oldPassword, newPassword);
+        AddressDAO addressDAO = new AddressDAO();
+        Address newAddress = new Address(0, addressDetail, customer.getCustomerID(), isDefault ? 1 : 0);
+        addressDAO.addAddress(newAddress);
 
-            if (isChanged) {
-                request.setAttribute("success", "Đổi mật khẩu thành công!");
-            } else {
-                request.setAttribute("error", "Sai mật khẩu cũ hoặc có lỗi xảy ra!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Lỗi hệ thống! Vui lòng thử lại.");
-        }
-
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        response.sendRedirect("listAddress");
     }
 
     /**

@@ -136,7 +136,7 @@
                     <!-- Sidebar -->
                     <div class="col-md-3">
                         <ul>
-                            <li><a href="account.jsp">Thông tin tài khoản</a></li>
+                            <li><a href="CustomerManagement">Thông tin tài khoản</a></li>
                             <li><a href="listAddress">Danh sách địa chỉ</a></li>
                             <li><a href="listOrders">Lịch sử mua hàng</a></li>
                             <li><a href="changepassword">Đổi mật khẩu</a></li>
@@ -145,29 +145,25 @@
                     </div>
 
                     <!-- Account Information -->
-                <c:if test="${sessionScope.customer != null}">
+                <c:if test="${customer != null}">
                     <div class="col-md-9">
                         <div class="account-info">
                             <h3>Thông tin tài khoản</h3>
                             <div class="info-item">
                                 <label for="username">Tên người dùng:</label>
-                                <input type="text" id="username" value="${sessionScope.customer.userName}" readonly>
+                                <input type="text" id="username" value="${customer.userName}" readonly>
                             </div>
                             <div class="info-item">
                                 <label for="username">Họ và tên:</label>
-                                <input type="text" id="fullName" value="${sessionScope.customer.fullName}" readonly>
+                                <input type="text" id="fullName" value="${customer.fullName}" readonly>
                             </div>
-                            <!--                            <div class="info-item">
-                                                            <label for="username">Password:</label>
-                                                            <input type="text" id="password" value="${sessionScope.customer.password}" readonly>
-                                                        </div>-->
                             <div class="info-item">
                                 <label for="email">Email:</label>
-                                <input type="email" id="email" value="${sessionScope.customer.email}" readonly>
+                                <input type="email" id="email" value="${customer.email}" readonly>
                             </div>
                             <div class="info-item">
                                 <label for="phone">Số điện thoại:</label>
-                                <input type="text" id="phone_number" value="${sessionScope.customer.phone}" readonly>
+                                <input type="text" id="phone_number" value="${customer.phone}" readonly>
                             </div>
                             <div class="info-item mx-auto">
                                 <a href="update-account.jsp" class="btn">Chỉnh sửa thông tin</a>

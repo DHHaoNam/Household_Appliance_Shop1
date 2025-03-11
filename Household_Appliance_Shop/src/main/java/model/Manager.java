@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -18,14 +18,14 @@ public class Manager {
     private String phone;
     private String userName;
     private String password;
-    private Date registrationDate;
+    private LocalDate registrationDate;
     private boolean status;
     private int roleID;
 
     public Manager() {
     }
 
-    public Manager(int managerID, String fullName, String email, String phone, String userName, String password, Date registrationDate, boolean status, int roleID) {
+    public Manager(int managerID, String fullName, String email, String phone, String userName, String password, LocalDate registrationDate, boolean status, int roleID) {
         this.managerID = managerID;
         this.fullName = fullName;
         this.email = email;
@@ -85,11 +85,11 @@ public class Manager {
         this.password = password;
     }
 
-    public Date getRegistrationDate() {
+    public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
+    public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
 
@@ -108,7 +108,4 @@ public class Manager {
     public void setRoleID(int roleID) {
         this.roleID = roleID;
     }
-    
-    
-    
 }
