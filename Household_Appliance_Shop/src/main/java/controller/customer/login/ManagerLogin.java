@@ -4,7 +4,6 @@
  */
 package controller.customer.login;
 
-import dao.CustomerDAO;
 import dao.ManagerDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -16,14 +15,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
-import model.Customer;
 import model.Manager;
 
 /**
  *
  * @author Nam
  */
-public class Login extends HttpServlet {
+public class ManagerLogin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +40,10 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet ManagerLogin</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ManagerLogin at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,9 +59,9 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
-        dispatcher.forward(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -80,26 +78,25 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            CustomerDAO customerDAO = new CustomerDAO();
-            Customer customer = customerDAO.login(userName, password);
-
-            if (customer != null) {
+            ManagerDAO managerDAO = new ManagerDAO();
+            Manager manager = managerDAO.login(userName, password);
+            if (manager != null) {
                 // Nếu là customer, chuyển đến trang home
                 HttpSession session = request.getSession();
-                session.setAttribute("customer", customer);
+                session.setAttribute("manager", manager);
 
                 Cookie userCookie = new Cookie("user", userName);
                 userCookie.setMaxAge(30 * 60);
                 userCookie.setPath("/");
                 response.addCookie(userCookie);
 
-                response.sendRedirect("home");
+                response.sendRedirect("admin-welcome.jsp");
                 return;
             }
 
             // Nếu không tìm thấy tài khoản hợp lệ
             request.setAttribute("errorMessage", "Invalid username or password.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login-manager.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();

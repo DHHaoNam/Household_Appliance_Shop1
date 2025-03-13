@@ -58,4 +58,31 @@ public class ManagerDAO extends DAO {
         }
         return null;
     }
+    public boolean changePassword(int managerID, String oldPassword, String newPassword) throws SQLException {
+        String sql = "SELECT password FROM Manager WHERE managerID = ?";
+
+        try ( Connection conn = getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, managerID);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String storedPassword = rs.getString("password");
+                String hashedOldPassword = hashPasswordMD5(oldPassword); // Băm mật khẩu cũ trước khi so sánh
+
+                if (!storedPassword.equals(hashedOldPassword)) {
+                    return false; // Sai mật khẩu cũ
+                }
+            } else {
+                return false; // Không tìm thấy người dùng
+            }
+        }
+
+        // Nếu mật khẩu đúng, cập nhật mật khẩu mới
+        String updateSql = "UPDATE Manager SET password = ? WHERE managerID = ?";
+        try ( Connection conn = getConnection();  PreparedStatement ps = conn.prepareStatement(updateSql)) {
+            ps.setString(1, hashPasswordMD5(newPassword)); // Băm mật khẩu mới trước khi lưu
+            ps.setInt(2, managerID);
+            return ps.executeUpdate() > 0;
+        }
+    }
 }

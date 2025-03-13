@@ -23,12 +23,16 @@ public class CustomerDAO extends DAO {
         String sql = "SELECT * FROM Customer WHERE userName = ? AND password = ?";
 
         try ( Connection conn = getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setString(1, userName);
             ps.setString(2, hashPasswordMD5(password));
 
             try ( ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
+                    boolean status = rs.getBoolean("status");
+                    if (!status) {
+                        throw new SQLException("Tài khoản đã bị khóa, vui lòng liên hệ quản trị viên.");
+                    }
+
                     customer = new Customer();
                     customer.setCustomerID(rs.getInt("customerID"));
                     customer.setFullName(rs.getString("fullName"));
@@ -36,16 +40,10 @@ public class CustomerDAO extends DAO {
                     customer.setPassword(rs.getString("password"));
                     customer.setEmail(rs.getString("email"));
                     customer.setPhone(rs.getString("phone"));
-                    customer.setStatus(rs.getBoolean("status"));
-
-                    // Nếu tài khoản bị khóa (status = false), không trả về đối tượng Customer
-                    if (!customer.getStatus()) {
-                        return null;
-                    }
+                    customer.setStatus(status);
                 }
             }
         }
-
         return customer;
     }
 

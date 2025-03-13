@@ -130,46 +130,47 @@
 
     <body>
         <jsp:include page="header.jsp"></jsp:include>
+            <div class = "row"
+                 <!-- Sidebar -->
+                <div class="col-md-3">
+                    <ul>
+                        <li><a href="CustomerManagement">Thông tin tài khoản</a></li>
+                        <li><a href="listAddress">Danh sách địa chỉ</a></li>
+                        <li><a href="listOrders">Lịch sử mua hàng</a></li>
+                        <li><a href="changepassword">Đổi mật khẩu</a></li>
+                        <li><a href="logout">Đăng xuất</a></li>
+                    </ul>
+                </div>
 
-            <!-- Sidebar -->
-            <div class="col-md-3">
-                <ul>
-                    <li><a href="CustomerManagement">Thông tin tài khoản</a></li>
-                    <li><a href="listAddress">Danh sách địa chỉ</a></li>
-                    <li><a href="listOrders">Lịch sử mua hàng</a></li>
-                    <li><a href="changepassword">Đổi mật khẩu</a></li>
-                    <li><a href="logout">Đăng xuất</a></li>
-                </ul>
-            </div>
-
-            <!-- Change Password Form -->
-            <div class="container my-5">
-                <h3>Thay đổi mật khẩu</h3>
-                <div class="account-info">
-                    <form action="changepassword" method="post">
-                        <div class="info-item">
-                            <label for="oldPassword">Mật khẩu cũ:</label>
-                            <input type="password" id="oldPassword" name="oldPassword" required>
-                        </div>
-                        <div class="info-item">
-                            <label for="newPassword">Mật khẩu mới:</label>
-                            <input type="password" id="newPassword" name="newPassword" required>
-                        </div>
-                        <div class="info-item">
-                            <label for="confirmPassword">Xác nhận mật khẩu mới:</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" required>
-                        </div>
-                        <div class="info-item">
-                            <button type="submit" class="btn">Đổi mật khẩu</button>
-                        </div>
-                    <c:if test="${not empty error}">
-                        <div class="alert alert-danger">${error}</div>
-                    </c:if>
-                    <c:if test="${not empty success}">
-                        <div class="alert alert-success">${success}</div>
-                        <c:remove var="success" scope="session"/>
-                    </c:if>
-                </form>
+                <!-- Change Password Form -->
+                <div class="container my-5 col-md-9">
+                    <h3>Thay đổi mật khẩu</h3>
+                    <div class="account-info">
+                        <form action="changepassword" method="post">
+                            <div class="info-item">
+                                <label for="oldPassword">Mật khẩu cũ:</label>
+                                <input type="password" id="oldPassword" name="oldPassword" required>
+                            </div>
+                            <div class="info-item">
+                                <label for="newPassword">Mật khẩu mới:</label>
+                                <input type="password" id="newPassword" name="newPassword" required>
+                            </div>
+                            <div class="info-item">
+                                <label for="confirmPassword">Xác nhận mật khẩu mới:</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            </div>
+                            <div class="info-item">
+                                <button type="submit" class="btn">Đổi mật khẩu</button>
+                            </div>
+                        <c:if test="${not empty error}">
+                            <div class="alert alert-danger">${error}</div>
+                        </c:if>
+                        <c:if test="${not empty success}">
+                            <div class="alert alert-success">${success}</div>
+                            <c:remove var="success" scope="session"/>
+                        </c:if>
+                    </form>
+                </div>
             </div>
         </div>
 

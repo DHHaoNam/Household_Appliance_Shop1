@@ -124,6 +124,7 @@
             .account-info .btn:hover {
                 background-color: #F56B4C;
             }
+            
         </style>
     </head>
 
@@ -134,10 +135,7 @@
                  <!-- Sidebar -->
                 <div class="col-md-3">
                     <ul>
-                        <li><a href="CustomerManagement">Thông tin tài khoản</a></li>
-                        <li><a href="listAddress">Danh sách địa chỉ</a></li>
-                        <li><a href="listOrders">Lịch sử mua hàng</a></li>
-                        <li><a href="changepassword">Đổi mật khẩu</a></li>
+                        <li><a href="managerchangepassword.jsp">Đổi mật khẩu</a></li>
                         <li><a href="logout">Đăng xuất</a></li>
                     </ul>
                 </div>
@@ -145,8 +143,8 @@
                 <!-- Change Password Form -->
                 <div class="container my-5 col-md-9">
                     <h3>Thay đổi mật khẩu</h3>
-                    <div class="account-info">
-                        <form action="changepassword" method="post">
+                    <div class = "account-info">
+                        <form action="managerchangepassword" method="post">
                             <div class="info-item">
                                 <label for="oldPassword">Mật khẩu cũ:</label>
                                 <input type="password" id="oldPassword" name="oldPassword" required>

@@ -28,6 +28,14 @@
         <servlet-name>UpdateAddress</servlet-name>
         <servlet-class>controller.customer.profile.UpdateAddress</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerLogin</servlet-name>
+        <servlet-class>controller.customer.login.ManagerLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerChangePassword</servlet-name>
+        <servlet-class>controller.customer.profile.ManagerChangePassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductController</servlet-name>
         <url-pattern>/ProductController</url-pattern>
@@ -134,6 +142,14 @@
     <servlet-mapping>
         <servlet-name>UpdateAddress</servlet-name>
         <url-pattern>/updateAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerLogin</servlet-name>
+        <url-pattern>/login-manager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerChangePassword</servlet-name>
+        <url-pattern>/managerchangepassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

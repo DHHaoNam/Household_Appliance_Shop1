@@ -37,8 +37,8 @@
 
                     <a href="#" class="nav-link user-toggle">
                         <i class="fa-solid fa-user"><c:if test="${sessionScope.acc != null}">
-                            <span class="username-display">${acc.username}</span>
-                        </c:if></i>  
+                                <span class="username-display">${acc.username}</span>
+                            </c:if></i>  
                     </a>
                     <div id="userMenu" class="user-menu">
                         <c:if test="${sessionScope.customer == null && sessionScope.manager == null}">
@@ -47,15 +47,24 @@
                                 <li><a href="register.jsp">Đăng ký</a></li>
                             </ul>
                         </c:if>
-                        <c:if test="${sessionScope.customer != null || sessionScope.manager != null}">
-                            <p>Xin chào, ${sessionScope.customer != null ? sessionScope.customer.userName : sessionScope.manager.userName}!</p>
+                        <c:if test="${sessionScope.manager != null}">
+                            <p>Xin chào, ${sessionScope.manager.userName}!</p>
+                            <ul class="list-unstyled">
+                                <li><a href="managerchangepassword.jsp"><i class="fas fa-exchange-alt me-2"></i>Đổi mật khẩu</a></li>
+                                <li><a href="logout"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                            </ul>
+                        </c:if>
+
+                        <c:if test="${sessionScope.customer != null}">
+                            <p>Xin chào, ${sessionScope.customer.userName}!</p>
                             <ul class="list-unstyled">
                                 <li><a href="CustomerManagement"><i class="fas fa-user-circle me-2"></i>Tài khoản của tôi</a></li>
                                 <li><a href="listAddress"><i class="fas fa-map-marker-alt me-2"></i>Danh sách địa chỉ</a></li>
                                 <li><a href="listOrders"><i class="fas fa-history me-2"></i>Lịch sử mua hàng</a></li>
                                 <li><a href="logout"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
                             </ul>
-                        </c:if> 
+                        </c:if>
+
                     </div>
                 </div>
                 <a href="cart" class="nav-link">
