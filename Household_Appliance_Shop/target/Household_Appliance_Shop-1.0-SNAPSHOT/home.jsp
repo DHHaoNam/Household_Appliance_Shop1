@@ -88,6 +88,10 @@
                 height: 100%;
             }
 
+            .main-content {
+                margin-bottom: 50px; /* Điều chỉnh khoảng cách theo ý muốn */
+            }
+
         </style>
     </head>
 
@@ -149,13 +153,8 @@
                                         <a style="text-decoration: none" href="product-detail?productID=${p.productID}">
                                             <h5 class="card-title">${p.productName}</h5>
                                         </a>
-                                        <p class="card-text">${p.price} VND</p>
-                                        <c:if test="${p.stock_Quantity > 0}">
-                                            <button class="btn btn-primary">Đặt Hàng</button>
-                                        </c:if>
-                                        <c:if test="${p.stock_Quantity <= 0}">
-                                            <button class="btn btn-secondary" disabled>Hết Hàng</button>
-                                        </c:if>
+                                        <p class="card-text"><fmt:formatNumber value="${p.price}" pattern="#,###đ"/> </p>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -181,58 +180,58 @@
 <script src="./Script/Script.js"></script>
 <script>
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // Get all menu items
-        const menuItems = document.querySelectorAll('.menu-nav a');
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                // Get all menu items
+                                                const menuItems = document.querySelectorAll('.menu-nav a');
 
-        // Get the current URL
-        const currentURL = window.location.href;
+                                                // Get the current URL
+                                                const currentURL = window.location.href;
 
-        // Add click event listener to each menu item
-        menuItems.forEach(item => {
-            // Check if this is the current page
-            if (currentURL === item.href) {
-                item.classList.add('active');
-            }
+                                                // Add click event listener to each menu item
+                                                menuItems.forEach(item => {
+                                                    // Check if this is the current page
+                                                    if (currentURL === item.href) {
+                                                        item.classList.add('active');
+                                                    }
 
-            // Add click event listener
-            item.addEventListener('click', function () {
-                // Remove active class from all items
-                menuItems.forEach(menuItem => {
-                    menuItem.classList.remove('active');
-                });
+                                                    // Add click event listener
+                                                    item.addEventListener('click', function () {
+                                                        // Remove active class from all items
+                                                        menuItems.forEach(menuItem => {
+                                                            menuItem.classList.remove('active');
+                                                        });
 
-                // Add active class to clicked item
-                this.classList.add('active');
-            });
-        });
+                                                        // Add active class to clicked item
+                                                        this.classList.add('active');
+                                                    });
+                                                });
 
-        // If no active item is found, activate "Tất cả" by default
-        if (!document.querySelector('.menu-nav a.active')) {
-            const allProductsLink = document.querySelector('.menu-nav a[href="home"]');
-            if (allProductsLink) {
-                allProductsLink.classList.add('active');
-            }
-        }
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-        // Get the current URL
-        const currentURL = window.location.href;
+                                                // If no active item is found, activate "Tất cả" by default
+                                                if (!document.querySelector('.menu-nav a.active')) {
+                                                    const allProductsLink = document.querySelector('.menu-nav a[href="home"]');
+                                                    if (allProductsLink) {
+                                                        allProductsLink.classList.add('active');
+                                                    }
+                                                }
+                                            });
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                // Get the current URL
+                                                const currentURL = window.location.href;
 
-        // Get all pagination links
-        const paginationLinks = document.querySelectorAll('.pagination a');
+                                                // Get all pagination links
+                                                const paginationLinks = document.querySelectorAll('.pagination a');
 
-        // Loop through all pagination links
-        paginationLinks.forEach(link => {
-            const parentLi = link.closest('li');
-            const isPageNumber = !parentLi.classList.contains('disabled') && !link.getAttribute('aria-label');
+                                                // Loop through all pagination links
+                                                paginationLinks.forEach(link => {
+                                                    const parentLi = link.closest('li');
+                                                    const isPageNumber = !parentLi.classList.contains('disabled') && !link.getAttribute('aria-label');
 
-            // Check if the link's href matches the current URL and it's a page number link
-            if (currentURL.includes(link.href) && isPageNumber) {
-                link.classList.add('active');
-            }
-        });
-    });
+                                                    // Check if the link's href matches the current URL and it's a page number link
+                                                    if (currentURL.includes(link.href) && isPageNumber) {
+                                                        link.classList.add('active');
+                                                    }
+                                                });
+                                            });
 
 
 

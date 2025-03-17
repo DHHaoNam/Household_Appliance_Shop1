@@ -3,6 +3,7 @@
 <%@ page import="model.Product" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:useBean id="cartlists" scope="session" class="java.util.ArrayList" />
 <!DOCTYPE html>
 <html lang="en">
@@ -93,6 +94,9 @@
                 padding: 5px; /* Thêm khoảng cách giữa ảnh và viền */
                 background-color: white; /* Nền trắng giúp ảnh nổi bật */
             }
+            .continue-shopping {
+                margin-bottom: 50px; /* Điều chỉnh khoảng cách theo ý muốn */
+            }
 
         </style>
     </head>
@@ -107,12 +111,12 @@
                     <table class="table table-bordered text-center">
                         <thead class="table-primary">
                             <tr>  
-                                <th>Product Name</th>
-                                <th>Image</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Total Price</th>
-                                <th>Action</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Hình Ảnh</th>
+                                <th>Số Lượng</th>
+                                <th>Giá</th>
+                                <th>Tổng Giá</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,8 +136,9 @@
                                            style="width: 60px;">
                                 </div>
                             </td>
-                            <td>$<%= item.getProduct().getPrice()%></td>
-                            <td>$<%= item.getTotalPrice()%></td>
+                            <td><fmt:formatNumber value="<%= item.getProduct().getPrice()%>" pattern="#,###đ"/></td>
+                            <td><fmt:formatNumber value="<%= item.getTotalPrice()%>" pattern="#,###đ"/></td>
+
                             <td>
                                 <button type="submit" name="removeProductId" value="<%= item.getProduct().getProductID()%>" 
                                         class="btn btn-danger btn-sm" onclick="return confirmDelete();">
@@ -155,13 +160,25 @@
             </form>
 
             <%-- Tổng giá --%>
+            <%
+                double totalPrice = 0;
+                if (cartItems != null) {
+                    for (CartItem item : cartItems) {
+                        totalPrice += item.getTotalPrice();
+                    }
+                }
+            %>
+
             <div class="text-end mt-3">
-                <h5><strong>Tổng giá: <span id="total-price">0</span> VND</strong></h5>
+                <h5><strong>Tổng giá: <fmt:formatNumber value="<%= totalPrice%>" pattern="#,###đ"/> </strong></h5>
             </div>
 
             <%-- Nút quay về trang mua hàng --%>
-            <div class="text-center mt-3">
+            <div class="text-center mt-3 continue-shopping">
                 <a href="home" class="btn btn-secondary">Tiếp tục mua hàng</a>
+                <form action="checkout" method="get" style="display: inline;">
+                    <button type="submit" class="btn btn-success paybtn" style="border-radius: 20px">Đặt hàng</button>
+                </form>
             </div>
         </div>
 
@@ -178,7 +195,7 @@
                     totalPrice += price * quantity;
                 });
 
-                document.getElementById('total-price').textContent = totalPrice.toLocaleString('vi-VN') + " VND";
+                document.getElementById('total-price').textContent = totalPrice.toLocaleString('vi-VN');
             }
 
             document.querySelectorAll('input[name="quantity"]').forEach(input => {
@@ -192,6 +209,7 @@
             function confirmDelete() {
                 return window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?");
             }
+
 
 
         </script>

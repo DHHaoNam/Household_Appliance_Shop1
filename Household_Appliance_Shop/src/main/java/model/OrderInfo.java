@@ -12,6 +12,7 @@ import java.sql.Date;
  * @author HP
  */
 public class OrderInfo {
+
     private int orderID;
     private int customerID;
     private int orderStatus;
@@ -19,13 +20,13 @@ public class OrderInfo {
     private int deliveryOptionID;
     private int managerID;
     private int paymentMethodID;
-    private BigDecimal totalPrice;
+    private double totalPrice;
     private String deliveryAddress;
 
     public OrderInfo() {
     }
 
-    public OrderInfo(int orderID, int customerID, int orderStatus, Date orderDate, int deliveryOptionID, int managerID, int paymentMethodID, BigDecimal totalPrice, String deliveryAddress) {
+    public OrderInfo(int orderID, int customerID, int orderStatus, Date orderDate, int deliveryOptionID, int managerID, int paymentMethodID, double totalPrice, String deliveryAddress) {
         this.orderID = orderID;
         this.customerID = customerID;
         this.orderStatus = orderStatus;
@@ -93,11 +94,11 @@ public class OrderInfo {
         this.paymentMethodID = paymentMethodID;
     }
 
-    public BigDecimal getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -108,7 +109,5 @@ public class OrderInfo {
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
     }
-    
-    
-    
+
 }

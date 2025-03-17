@@ -78,26 +78,26 @@ public class AddressDAO extends DAO {
         }
         return false;
     }
-    
+
     public boolean addAddress(Address address) {
-    String sql = "INSERT INTO Address (addressDetail, CustomerID, isDefault) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Address (addressDetail, CustomerID, isDefault) VALUES (?, ?, ?)";
 
-    try (Connection conn = this.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-        // Nếu thêm địa chỉ là mặc định, cần xóa địa chỉ mặc định trước đó
-        if (address.isDefault() == 1) {
-            removeDefaultAddress(address.getCustomerID());
+        try ( Connection conn = this.getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
+            // Nếu thêm địa chỉ là mặc định, cần xóa địa chỉ mặc định trước đó
+            if (address.isDefault() == 1) {
+                removeDefaultAddress(address.getCustomerID());
+            }
+
+            ps.setString(1, address.getAddressDetail());
+            ps.setInt(2, address.getCustomerID());
+            ps.setInt(3, address.isDefault());
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        ps.setString(1, address.getAddressDetail());
-        ps.setInt(2, address.getCustomerID());
-        ps.setInt(3, address.isDefault());
-        
-        return ps.executeUpdate() > 0;
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return false;
     }
-    return false;
-}
 
     public Address getAddressById(int addressID) {
         String query = "SELECT * FROM Address WHERE addressID = ?";
@@ -117,5 +117,26 @@ public class AddressDAO extends DAO {
         }
         return null;
     }
-    
+
+    public Address getDefaultAddress(int customerID) {
+        String sql = "SELECT * FROM Address WHERE CustomerID = ? AND isDefault = 1";
+
+        try ( Connection conn = this.getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, customerID);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new Address(
+                        rs.getInt("addressID"),
+                        rs.getString("addressDetail"),
+                        rs.getInt("CustomerID"),
+                        rs.getInt("isDefault")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

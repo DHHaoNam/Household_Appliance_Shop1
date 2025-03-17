@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -149,7 +150,7 @@
                 <!-- Food Details -->
                 <div class="col-md-6 margin-left">
                     <h2 class="food-name">${details.productName}</h2>
-                    <p class="food-price">${details.price} VND</p>
+                    <p class="food-price"><fmt:formatNumber value="${details.price}" pattern="#,###đ"/></p>
 
                     <!-- Quantity and Add to Cart -->
                     <form action="ProductDetailController" method="post"> <!-- Đổi action thành 'cart' để gửi đến CartController -->
@@ -161,13 +162,13 @@
                             <label for="description">Mô Tả</label>
                             <textarea id="description" name="description" class="form-control" rows="2" readonly>${details.description}</textarea>
                         </div>
-                        
-                        
+
+
                         <div class="form-group">
                             <label for="Brand">Brand</label>
-                             <input type="text" id="brandID" name="brand" class="form-control" value="${brand.brandName}" readonly>
+                            <input type="text" id="brandID" name="brand" class="form-control" value="${brand.brandName}" readonly>
                         </div>
-                       
+
 
 
                         <input type="hidden" name="productId" value="${details.productID}"> <!-- ID của món ăn -->

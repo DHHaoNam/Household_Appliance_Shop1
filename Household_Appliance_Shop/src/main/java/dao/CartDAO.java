@@ -161,4 +161,20 @@ public class CartDAO extends DAO {
             return 0;
         }
     }
+
+    public boolean clearCart(int customerID) {
+        String sql = "DELETE FROM CartItem WHERE cartID = (SELECT cartID FROM Cart WHERE customerID = ?)";
+
+        try ( Connection conn = getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, customerID);
+            int rowsAffected = ps.executeUpdate();
+
+            return rowsAffected > 0; // Trả về true nếu có sản phẩm bị xóa
+        } catch (SQLException e) {
+            System.out.println("Lỗi khi xóa giỏ hàng: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
