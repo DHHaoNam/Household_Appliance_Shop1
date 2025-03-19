@@ -103,14 +103,20 @@ public class ProductDAO extends DAO {
     }
 
     // 5. Xóa sản phẩm
-    public boolean deleteProduct(int productID) throws SQLException {
-        boolean rowDeleted;
-        try ( Connection connection = getConnection();  PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_SQL)) {
-            preparedStatement.setInt(1, productID);
-            rowDeleted = preparedStatement.executeUpdate() > 0;
-        }
-        return rowDeleted;
+    public boolean deleteProduct(int id) {
+    boolean rowDeleted = false;
+    try (Connection connection = getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_SQL)) {
+        
+        preparedStatement.setInt(1, id);
+        rowDeleted = preparedStatement.executeUpdate() > 0; // Kiểm tra số dòng bị ảnh hưởng
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return rowDeleted;
+}
+
 
     //6. Lấy sản phẩm theo categoryID
     public List<Product> selectProductBycategory(int categoryID) {
@@ -160,6 +166,44 @@ public class ProductDAO extends DAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public List<Product> filterProductsByPrice(Double minPrice, Double maxPrice) throws SQLException {
+        List<Product> productList = new ArrayList<>();
+        String sql = "SELECT * FROM Product WHERE 1=1";
+
+        if (minPrice != null) {
+            sql += " AND price >= ?";
+        }
+        if (maxPrice != null) {
+            sql += " AND price <= ?";
+        }
+
+        try ( Connection conn = getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
+            int index = 1;
+            if (minPrice != null) {
+                ps.setDouble(index++, minPrice);
+            }
+            if (maxPrice != null) {
+                ps.setDouble(index++, maxPrice);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product(
+                        rs.getInt("productID"),
+                        rs.getString("productName"),
+                        rs.getString("description"),
+                        rs.getInt("categoryID"),
+                        rs.getDouble("price"),
+                        rs.getInt("stock_Quantity"),
+                        rs.getInt("brandID"),
+                        rs.getString("image")
+                );
+                productList.add(product);
+            }
+        }
+        return productList;
     }
 
 }

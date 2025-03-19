@@ -84,6 +84,7 @@ public class ManagerLogin extends HttpServlet {
                 // Nếu là customer, chuyển đến trang home
                 HttpSession session = request.getSession();
                 session.setAttribute("manager", manager);
+                session.setAttribute("managerRole", manager.getRoleID());
 
                 Cookie userCookie = new Cookie("user", userName);
                 userCookie.setMaxAge(30 * 60);

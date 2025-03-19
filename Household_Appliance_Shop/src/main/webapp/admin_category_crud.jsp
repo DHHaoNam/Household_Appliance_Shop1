@@ -79,11 +79,13 @@
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <h3>Admin Dashboard</h3>
-                    <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
-                    <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
-                    <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
-                    <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
-                    <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
+                  <c:if test="${sessionScope.managerRole == 1}">
+            <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
+        </c:if>        
+            <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
+            <a href="CustomerController_temp"><i class="fas fa-users"></i> Account Management</a>
+            <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
+            <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
                 </div>
 
                 <!-- Main content -->

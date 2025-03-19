@@ -5,7 +5,7 @@
 --%>
 <%
     // Kiểm tra nếu user là customer nhưng không phải manager
-    if (session.getAttribute("customer") != null && session.getAttribute("manager") == null) {
+    if (session.getAttribute("manager") == null) {
         response.sendRedirect("home");
         return;
     }
@@ -78,10 +78,12 @@
         <!-- Sidebar -->
         <jsp:include page="admin_dashboard_header.jsp"></jsp:include>
         <div class="sidebar">
-            <h3>Admin Dashboard</h3>
+            <h3>Admin Dashboard</h3>        
+        <c:if test="${sessionScope.managerRole == 1}">
             <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
+        </c:if>        
             <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
-            <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
+            <a href="CustomerController_temp"><i class="fas fa-users"></i> Account Management</a>
             <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
             <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
         </div>

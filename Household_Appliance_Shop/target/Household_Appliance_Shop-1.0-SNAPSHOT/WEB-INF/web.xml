@@ -40,6 +40,10 @@
         <servlet-name>Checkout</servlet-name>
         <servlet-class>controller.cartController.Checkout</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>CustomerController_temp</servlet-name>
+        <servlet-class>controller.product.CustomerController_temp</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductController</servlet-name>
         <url-pattern>/ProductController</url-pattern>
@@ -58,6 +62,17 @@
         <url-pattern>/newedit-category</url-pattern>
         <url-pattern>/edit-category</url-pattern>
         <url-pattern>/delete-category</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>CustomerController_temp</servlet-name>
+        <url-pattern>/CustomerController_temp</url-pattern>
+        <url-pattern>/admin-edit-account</url-pattern>
+        <url-pattern>/admin-update-account</url-pattern>      
+        <url-pattern>/admin-delete-account</url-pattern>
+        <url-pattern>/admin-toggle-status</url-pattern>                              
+        <url-pattern>/admin-search-account</url-pattern>
+        <url-pattern>/admin-add-account</url-pattern>
+        <url-pattern>/admin-view-account</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>HomeController</servlet-name>

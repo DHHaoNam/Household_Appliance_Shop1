@@ -24,7 +24,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int customerID, String fullName, String email, String phone, String userName, String password, Date registrationDate, boolean status) {
+    public Customer(int customerID, String fullName, String email, String phone, String userName, String password, LocalDate registrationDate, boolean status) {
         this.customerID = customerID;
         this.fullName = fullName;
         this.email = email;
@@ -35,6 +35,18 @@ public class Customer {
         this.status = status;
     }
 
+    public Customer(String fullName, String email, String phone, String userName, String password, LocalDate registrationDate, boolean status) {
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.userName = userName;
+        this.password = password;
+        this.registrationDate = registrationDate;
+        this.status = status;
+    }
+
+    
+    
     public int getCustomerID() {
         return customerID;
     }

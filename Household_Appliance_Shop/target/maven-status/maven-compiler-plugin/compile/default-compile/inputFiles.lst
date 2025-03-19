@@ -1,34 +1,50 @@
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\customer\profile\ChangePassword.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\ProductSupplier.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\Product.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\dao\DAO.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\cartController\ProductDetailController.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\cartController\CartController.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\Cart.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\Category.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\customer\login\Logout.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\OrderDetail.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\OrderInfo.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\dao\CategoryDAO.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\Manager.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\Brand.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\dao\TestCartDAO.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\dao\CustomerDAO.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\CartItem.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\dao\BrandDAO.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\dao\ProductDAO.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\dao\HomeDAO.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\Customer.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\PaymentMethod.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\Address.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\Supplier.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\product\ProductController.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\homeController\HomeController.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\dao\CartDAO.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\OrderStatus.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\Role.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\customer\register\Register.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\customer\login\Login.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\product\CategoryController.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\controller\customer\profile\UpdateProfile.java
-D:\SPRING_2025_Ki_5\SWP391\P1\Household_Appliance_Shop\Household_Appliance_Shop\src\main\java\model\DeliveryOption.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\profile\ChangePassword.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\profile\CustomerManagement.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\ProductSupplier.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\product\CategoryController.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\CategoryDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\BrandDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\CartDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\homeController\HomeController.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\product\CustomerController_temp.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\cartController\ProductDetailController.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\AddressDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\CustomerDAO_temp.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\profile\UpdateProfile.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\TestOrderDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\DeliveryOption.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\profile\ManagerChangePassword.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\Supplier.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\Product.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\product\ProductController.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\OrderInfo.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\Cart.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\cartController\CartController.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\login\Logout.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\profile\AddAddress.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\OrderDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\Address.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\profile\DeleteAddress.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\DAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\Category.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\CustomerDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\profile\AddressManagement.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\Manager.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\ManagerDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\HomeDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\PaymentDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\Brand.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\CartItem.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\cartController\Checkout.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\Role.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\OrderStatus.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\login\Login.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\login\ManagerLogin.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\Customer.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\ProductDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\TestCartDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\PaymentMethod.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\profile\UpdateAddress.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\dao\DeliveryDAO.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\controller\customer\register\Register.java
+D:\Ky 5\SWP391\database\Household_Appliance_Shop1\Household_Appliance_Shop\src\main\java\model\OrderDetail.java

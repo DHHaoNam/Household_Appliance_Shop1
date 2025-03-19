@@ -74,77 +74,98 @@
     <body>
         <jsp:include page="admin_dashboard_header.jsp"></jsp:include>
 
-            <div class="wrapper clearfix">
-                <!-- Sidebar -->
-                <div class="sidebar">
-                    <h3>Admin Dashboard</h3>
-                    <a href="CategoryControl"><i class="fas fa-list"></i> Category Management</a>
-                    <a href="productcontrol"><i class="fas fa-box"></i> Product Management</a>
-                    <a href="admin-account-crud"><i class="fas fa-users"></i> Account Management</a>
-                    <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
-                    <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
-                </div>
-
-                <!-- Main content -->
-                <div class="content">
-                    <h1>Account Management</h1>
-
-                    <!-- Search Form -->
-                    <form method="GET" action="admin-search-account" class="mb-3">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" name="search" class="form-control" placeholder="Search account by username" value="${param.search}">
-                        </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary w-100"><i class="fas fa-search"></i> Search</button>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- Add Account Button -->
-                <a href="admin_add_account.jsp" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add New Account</a>
-
-                <!-- Account Table -->
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Password</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Date created</th>
-                            <th>Role</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="a" items="${accounts}">
-
-                            <tr>
-                                <td>${a.id}</td>
-                                <td>${a.username}</td>
-                                <td>${a.password}</td>
-                                <td>${a.email}</td>
-                                <td>${a.phone_number}</td>
-                                <td>${a.createdAt}</td>
-                                <td>${a.isAdmin() ? "Admin" : "User"}</td>
-
-                                <td>
-                                    <c:if test="${a.id != sessionScope.acc.id}">
-                                        <a href="/admin-edit-account?id=${a.id}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                                        <a href="/admin-delete-account?id=${a.id}" class="btn btn-danger btn-sm"
-                                           onclick="return confirm('Are you sure you want to delete this account?');"><i class="fas fa-trash"></i> Delete</a>
-                                    </c:if>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+            <div class="sidebar">
+                <h3>Admin Dashboard</h3>        
+            <c:if test="${sessionScope.managerRole == 1}">
+                <a href="CategoryController"><i class="fas fa-list"></i> Category Management</a>
+            </c:if>        
+            <a href="ProductController"><i class="fas fa-box"></i> Product Management</a>
+            <a href="CustomerController_temp"><i class="fas fa-users"></i> Account Management</a>
+            <a href="listAdminOrders"><i class="fas fa-shopping-cart"></i> Order Management</a>
+            <a href="revenue-chart"><i class="fa-solid fa-chart-simple"></i> Revenue Management</a>
         </div>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+        <!-- Main content -->
+        <div class="content">
+            <h1>Account Management</h1>
+
+            <!-- Search Form -->
+            <form method="GET" action="admin-search-account" class="mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="search" class="form-control" placeholder="Search account by phone number" value="${param.search}">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Add Account Button -->
+            <a href="admin_add_account.jsp" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add New Account</a>
+
+            <!-- Account Table -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="a" items="${customers}">
+
+                        <tr>
+                            <td>${a.customerID}</td>
+                            <td>${a.fullName}</td>                             
+                            <td>${a.email}</td>
+                            <td>${a.phone}</td>
+                            <td>  
+                                <c:choose>
+                                    <c:when test="${a.status}">
+                                        <span class="badge bg-success">Active</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="badge bg-danger">Inactive</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+
+                                <a href="/admin-view-account?id=${a.customerID}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                    
+                                    
+                                    
+                                <a href="/admin-edit-account?id=${a.customerID}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                
+                                
+                                <a href="/admin-delete-account?id=${a.customerID}" class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Are you sure you want to delete accountID = ${a.customerID}');"><i class="fas fa-trash"></i> Delete</a>                             
+                                
+                                   
+                                   
+                                   <a href="/admin-toggle-status?id=${a.customerID}" class="btn ${a.status ? 'btn-warning' : 'btn-success'} btn-sm">
+                                    <i class="fas ${a.status ? 'fa-toggle-off' : 'fa-toggle-on'}"></i> 
+                                    ${a.status ? 'Deactivate' : 'Activate'}
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <c:if test="${not empty error }">
+                <strong>${error}</strong>
+            </c:if>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

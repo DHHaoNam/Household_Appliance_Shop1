@@ -101,8 +101,10 @@ public class Login extends HttpServlet {
             request.setAttribute("errorMessage", "Invalid username or password.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request, response);
         }
     }
 

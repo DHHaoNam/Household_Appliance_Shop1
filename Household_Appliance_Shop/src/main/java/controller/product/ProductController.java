@@ -126,22 +126,34 @@ public class ProductController extends HttpServlet {
     CategoryDAO cdao = new CategoryDAO();
     BrandDAO bdao = new BrandDAO();
 
-    private void adminProduct(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
-            throws SQLException, IOException, jakarta.servlet.ServletException {
+    private void adminProduct(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
         List<Product> product;
-        String categoryID_raw = request.getParameter("categoryID");
 
-        if (categoryID_raw != null && !categoryID_raw.isEmpty()) {
-            int categoryID = Integer.parseInt(categoryID_raw);
-            product = pdao.selectProductBycategory(categoryID);
+        // Lấy giá trị minPrice và maxPrice từ request
+        String minPrice_raw = request.getParameter("minPrice");
+        String maxPrice_raw = request.getParameter("maxPrice");
+
+        Double minPrice = (minPrice_raw != null && !minPrice_raw.isEmpty()) ? Double.parseDouble(minPrice_raw) : null;
+        Double maxPrice = (maxPrice_raw != null && !maxPrice_raw.isEmpty()) ? Double.parseDouble(maxPrice_raw) : null;
+
+        // Gọi DAO để lấy danh sách sản phẩm theo giá
+        if (minPrice != null || maxPrice != null) {
+            product = pdao.filterProductsByPrice(minPrice, maxPrice);
         } else {
             product = pdao.selectAllProducts();
         }
+
+        // Lấy danh sách thương hiệu và danh mục
         List<Brand> brand = bdao.selectAllBrands();
         List<Category> categories = cdao.selectAllCategories();
+
+        // Đưa dữ liệu vào request để hiển thị trên JSP
         request.setAttribute("brand", brand);
         request.setAttribute("categories", categories);
         request.setAttribute("p", product);
+
+        // Chuyển hướng đến trang quản lý sản phẩm
         request.getRequestDispatcher("admin_product_crud.jsp").forward(request, response);
     }
 
@@ -204,12 +216,8 @@ public class ProductController extends HttpServlet {
     private void delete(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
             throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
-        try {
-            pdao.deleteProduct(id);
-            response.sendRedirect(request.getContextPath() + "/ProductController");
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
+        pdao.deleteProduct(id);
+        response.sendRedirect(request.getContextPath() + "/ProductController");
     }
 
     private void search(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
@@ -223,12 +231,16 @@ public class ProductController extends HttpServlet {
                 return;
             }
             products = pdao.searchProduct(search);
-           
+
             if (products.isEmpty()) {
                 request.setAttribute("error", "Khong tim thay san pham hop le");
             } else {
                 request.setAttribute("p", products);
             }
+            List<Category> category = cdao.selectAllCategories();
+            List<Brand> brand = bdao.selectAllBrands();
+            request.setAttribute("categories", category);
+            request.setAttribute("brand", brand);
             request.getRequestDispatcher("admin_product_crud.jsp").forward(request, response);
         } catch (IOException e) {
             e.printStackTrace();
